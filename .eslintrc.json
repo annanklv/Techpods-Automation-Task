@@ -10,7 +10,14 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
+    "no-console": "off",
     "quotes": ["error", "single"],
-    "semi": ["error", "always"]
+    "semi": ["error", "always"],
+    "prettier/prettier":[
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   }
 }

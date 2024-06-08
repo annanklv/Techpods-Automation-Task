@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "codegen": "playwright codegen https://automationintesting.online/#/admin",
+    "test:all": "playwright test",
+    "test:rooms": "playwright test rooms.spec.ts --headed"
   },
   "keywords": [],
   "author": "",
@@ -13,7 +15,9 @@
     "@playwright/test": "^1.44.1",
     "playwright": "^1.44.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "dotenv": "^16.4.5",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.12.0",
