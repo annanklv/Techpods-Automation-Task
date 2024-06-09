@@ -15,6 +15,13 @@ test.describe("Login and logout test cases", async () => {
     await hooks.afterEachPostconditions();
   });
 
+  test("Test that you can create a room.", async ({ page }) => {
+    const roomsPage = new RoomsPage(page);
+
+    await roomsPage.createRoom(123, "suite", true, 120, [roomsPage.roomDetails.tv, roomsPage.roomDetails.views]);
+    await roomsPage.assertNewRoomIsCreatedWithCorrectData("123", "Suite", "true", "120", "TV, Views");
+  });
+
   test("Test that you can not create a room with invalid input data.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
@@ -34,17 +41,15 @@ test.describe("Login and logout test cases", async () => {
     await expect(roomsPage.dangerAlert).toContainText("must be greater than or equal to 1");
   });
 
-  test("Test that you can create a room.", async ({ page }) => {
-    const roomsPage = new RoomsPage(page);
-
-    await roomsPage.createRoom(123, "suite", true, 120, [roomsPage.roomDetails.tvCheckbox, roomsPage.roomDetails.viewsCheckbox]);
-    await roomsPage.assertNewRoomIsCreatedWithCorrectData("123", "Suite", "true", "120", "TV, Views");
-  });
-
   test("Test that you can update a room.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
-    await roomsPage.createRoom(123, "suite", true, 120, [roomsPage.roomDetails.tvCheckbox, roomsPage.roomDetails.viewsCheckbox]);
-    await roomsPage.assertNewRoomIsCreatedWithCorrectData("123", "Suite", "true", "120", "TV, Views");
+    await roomsPage.createRoom(377, "family", false, 200, [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]);
+    await roomsPage.clickOnLastAddedRoomRow();
+    await roomsPage.assertEditRoomPageDataIsCorrect("377", "Family", "false", "200", "WiFi, Refreshments", "Please enter a description for this room");
+    await roomsPage.editRoomDetails(501, "single", true, 100, [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments], [roomsPage.roomDetails.radio, roomsPage.roomDetails.safe], "Updated room description");
+    await roomsPage.assertEditRoomPageDataIsCorrect("501", "Single", "true", "100", "Radio, Safe", "Updated room description");
+    await page.goBack();
+    await roomsPage.assertNewRoomIsCreatedWithCorrectData("501", "Single", "true", "100", "Radio, Safe");
   });
 });
