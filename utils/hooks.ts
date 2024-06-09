@@ -1,9 +1,9 @@
-import { Page } from "playwright";
+import { Page, chromium } from "playwright";
 import { LoginPage } from "../pageObjects/loginPage";
 import { AdminPanelPage } from "../pageObjects/adminPanelPage";
 
 class Hooks {
-  private readonly page: Page;
+  readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
@@ -13,19 +13,19 @@ class Hooks {
     const loginPage = new LoginPage(this.page);
     const adminPanelPage = new AdminPanelPage(this.page);
 
-    console.log("Before each start");
+    console.log("Loggin in.");
     await this.page.goto(adminPanelPage.url);
     await loginPage.login();
-    console.log("Before each end");
+    console.log("Successfully logged in.");
   };
 
   async afterEachPostconditions(): Promise<void> {
     const adminPanelPage = new AdminPanelPage(this.page);
 
-    console.log("After each start.");
+    console.log("Logging out.");
     await adminPanelPage.logout();
     await this.page.close();
-    console.log("After each end.");
+    console.log("Successfully logged out.");
   };
 }
 

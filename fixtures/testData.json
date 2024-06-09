@@ -1,0 +1,61 @@
+{
+  "validRooms": [
+    {
+      "roomNumber": 409,
+      "type": "single",
+      "accessibility": true,
+      "price": 120
+    },
+    {
+      "roomNumber": 307,
+      "type": "family",
+      "accessibility": false,
+      "price": 230
+    },
+    {
+      "roomNumber": 217,
+      "type": "twin",
+      "accessibility": true,
+      "price": 150,
+      "description": "Updated room description"
+    },
+    {
+      "roomNumber": 532,
+      "type": "suite",
+      "accessibility": false,
+      "price": 300
+    }
+  ],
+  "expectedRoomValues": [
+    {
+      "roomNumber": "409",
+      "type": "Single",
+      "accessibility": "true",
+      "price": "120"
+    },
+    {
+      "roomNumber": "307",
+      "type": "Family",
+      "accessibility": "false",
+      "price": "230",
+      "defaultDescription": "Please enter a description for this room"
+    },
+    {
+      "roomNumber": "217",
+      "type": "Twin",
+      "accessibility": "true",
+      "price": "150",
+      "description": "Updated room description"
+    },
+    {
+      "roomNumber": "532",
+      "type": "suite",
+      "accessibility": "false",
+      "price": "300"
+    }
+  ],
+  "invalidRooms": {
+    "roomNumber": "",
+    "price": 3000
+  }
+}

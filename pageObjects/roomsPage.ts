@@ -1,14 +1,6 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
 
-type RoomType = {
-  single: "Single";
-  twin: "Twin";
-  double: "Double";
-  family: "Family",
-  suite: "Suite"
-};
-
 class RoomsPage {
   readonly page: Page;
   readonly roomNumber: Locator;
@@ -30,6 +22,8 @@ class RoomsPage {
   readonly editPageRoomDetails: Locator;
   readonly description: Locator;
   readonly updateButton: Locator;
+  readonly roomDataRow: Locator;
+  readonly deleteRoomButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -52,27 +46,30 @@ class RoomsPage {
     this.editPageRoomDetails = page.locator(".room-details");
     this.description = page.locator("#description");
     this.updateButton = page.locator("#update");
+    this.roomDataRow = page.getByTestId("roomlisting");
+    this.deleteRoomButton = page.locator("span[class*='roomDelete']");
   };
 
-  async createRoom(roomNumber: number, type: keyof RoomType, accessibility: boolean, price: number, roomDetails: Locator[]) {
+  async createRoom(roomNumber: number, type: string, accessibility: boolean, price: number, roomDetails: Locator[]): Promise<void> {
     await this.fillInRoomNumber(roomNumber);
     await this.selectType(type);
     await this.selectAccessibility(accessibility);
     await this.fillInPrice(price);
     await this.checkDetails(roomDetails);
     await this.createButton.click();
+    await this.page.waitForTimeout(1000);
   };
 
-  async fillInRoomNumber(roomNumber: number) {
+  async fillInRoomNumber(roomNumber: number): Promise<void> {
     await this.roomNumber.fill(roomNumber.toString());
   };
 
-  async selectType(type: keyof RoomType) {
+  async selectType(type: string): Promise<void> {
     await this.type.click();
     await this.type.selectOption(await this.page.locator(`select > option:has-text("${type}")`).innerText());
   };
 
-  async selectAccessibility(accessibility: boolean) {
+  async selectAccessibility(accessibility: boolean): Promise<void> {
     await this.accessibility.click();
     await this.accessibility.selectOption(await this.page.locator(`select > option:has-text("${accessibility}")`).innerText());
   };
@@ -81,7 +78,7 @@ class RoomsPage {
     await this.price.fill(price.toString());
   };
 
-  async checkDetails(roomDetails: Locator[]) {
+  async checkDetails(roomDetails: Locator[]): Promise<void> {
     for (const detail of roomDetails) {
       if (!(await detail.isChecked())) {
         await detail.click();
@@ -89,7 +86,7 @@ class RoomsPage {
     }
   };
 
-  async uncheckDetails(roomDetails: Locator[]) {
+  async uncheckDetails(roomDetails: Locator[]): Promise<void> {
     for (const detail of roomDetails) {
       if (await detail.isChecked()) {
         await detail.click();
@@ -97,16 +94,16 @@ class RoomsPage {
     }
   };
 
-  async fillInDescription(description: string) {
+  async fillInDescription(description: string): Promise<void> {
     await this.description.fill(description);
   };
 
-  async clickTheCreateButton() {
+  async clickTheCreateButton(): Promise<void> {
     await this.createButton.click();
     await this.page.waitForTimeout(1000);
   };
 
-  async assertNewRoomIsCreatedWithCorrectData(expectedRoomNumberValue: string, expectedTypeValue: string, expectedAccessibilityValue: string, expectedPriceValue: string, expectedRoomDetailsValue: string) {
+  async assertNewRoomIsCreatedWithCorrectData(expectedRoomNumberValue: string, expectedTypeValue: string, expectedAccessibilityValue: string, expectedPriceValue: string, expectedRoomDetailsValue: string): Promise<void> {
     const actualRoomNumberValue = await this.lastRoomDataRow.locator("div:nth-child(1) > p").innerText();
     const actualTypeValue = await this.lastRoomDataRow.locator("div:nth-child(2) > p").innerText();
     const actualAccessiblilityValue = await this.lastRoomDataRow.locator("div:nth-child(3) > p").innerText();
@@ -120,12 +117,11 @@ class RoomsPage {
     await expect(actualRoomDetailsValue).toEqual(expectedRoomDetailsValue);
   };
 
-  async clickOnLastAddedRoomRow() {
-    await this.page.waitForTimeout(1000);
+  async clickOnLastAddedRoomRow(): Promise<void> {
     await this.lastRoomDataRow.click();
   };
 
-  async assertEditRoomPageDataIsCorrect(roomNumber: string, type: string, accessibility: string, price: string, roomDetails: string, description: string) {
+  async assertEditRoomPageDataIsCorrect(roomNumber: string, type: string, accessibility: string, price: string, roomDetails: string, description: string): Promise<void> {
     await expect(this.page).toHaveURL(/room/);
     await expect(this.editButton).toBeVisible();
     await expect(this.editPageRoomDetails).toBeVisible();
@@ -137,7 +133,7 @@ class RoomsPage {
     await expect(this.editPageRoomDetails).toContainText(`Description: ${description}`);
   };
 
-  async editRoomDetails(roomNumber: number, type: keyof RoomType, accessibility: boolean, price: number, roomDetailsToUncheck: Locator[], roomDetailsToCheck: Locator[], description: string) {
+  async editRoomDetails(roomNumber: number, type: string, accessibility: boolean, price: number, roomDetailsToUncheck: Locator[], roomDetailsToCheck: Locator[], description: string): Promise<void> {
     await this.editButton.click();
     await this.fillInRoomNumber(roomNumber);
     await this.selectType(type);
@@ -147,6 +143,35 @@ class RoomsPage {
     await this.checkDetails(roomDetailsToCheck);
     await this.fillInDescription(description);
     await this.updateButton.click();
+  };
+
+  async getNumberOfRooms(): Promise<number> {
+    return await this.roomDataRow.count()
+  };
+
+  async getLastRoomData(): Promise<string> {
+    return await this.lastRoomDataRow.innerText();
+  };
+
+  async deleteLastAddedRoom(): Promise<void> {
+    await this.deleteRoomButton.last().click();
+    await this.page.waitForTimeout(1000);
+  };
+
+  async getAllAvailableRooms(): Promise<void> {
+    const rooms = await this.roomDataRow.all();
+    if (rooms.length > 0) {
+      for (const room of rooms) {
+        const roomNumber = await room.locator("div:nth-child(1) > p").innerText();
+        const type = await room.locator("div:nth-child(2) > p").innerText();
+        const accessiblility = await room.locator("div:nth-child(3) > p").innerText();
+        const price = await room.locator("div:nth-child(4) > p").innerText();
+        const roomDetails = await room.locator("div:nth-child(5) > p").innerText();
+        console.log(`Room Number: ${roomNumber}, Type: ${type}, Accessibility: ${accessiblility}, Price: ${price}, Room details: ${roomDetails}`);
+      }
+    } else {
+      console.log("No available rooms in the system.");
+    }
   };
 }
 
