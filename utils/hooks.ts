@@ -1,4 +1,4 @@
-import { Page, chromium } from "playwright";
+import { Page } from "playwright";
 import { LoginPage } from "../pageObjects/loginPage";
 import { AdminPanelPage } from "../pageObjects/adminPanelPage";
 

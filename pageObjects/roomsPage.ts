@@ -1,5 +1,6 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
+import translations from "../fixtures/translations.json";
 
 class RoomsPage {
   readonly page: Page;
@@ -24,6 +25,7 @@ class RoomsPage {
   readonly updateButton: Locator;
   readonly roomDataRow: Locator;
   readonly deleteRoomButton: Locator;
+  readonly english: any;
 
   constructor(page: Page) {
     this.page = page;
@@ -48,9 +50,10 @@ class RoomsPage {
     this.updateButton = page.locator("#update");
     this.roomDataRow = page.getByTestId("roomlisting");
     this.deleteRoomButton = page.locator("span[class*='roomDelete']");
+    this.english = translations["en-EN"];
   };
 
-  async createRoom(roomNumber: number, type: string, accessibility: boolean, price: number, roomDetails: Locator[]): Promise<void> {
+  async createRoom(roomNumber: number, type: string, accessibility: string, price: number, roomDetails: Locator[]): Promise<void> {
     await this.fillInRoomNumber(roomNumber);
     await this.selectType(type);
     await this.selectAccessibility(accessibility);
@@ -69,7 +72,7 @@ class RoomsPage {
     await this.type.selectOption(await this.page.locator(`select > option:has-text("${type}")`).innerText());
   };
 
-  async selectAccessibility(accessibility: boolean): Promise<void> {
+  async selectAccessibility(accessibility: string): Promise<void> {
     await this.accessibility.click();
     await this.accessibility.selectOption(await this.page.locator(`select > option:has-text("${accessibility}")`).innerText());
   };
@@ -125,15 +128,15 @@ class RoomsPage {
     await expect(this.page).toHaveURL(/room/);
     await expect(this.editButton).toBeVisible();
     await expect(this.editPageRoomDetails).toBeVisible();
-    await expect(this.editPageRoomDetails).toContainText(`Room: ${roomNumber}`);
-    await expect(this.editPageRoomDetails).toContainText(`Type: ${type}`);
-    await expect(this.editPageRoomDetails).toContainText(`Accessible: ${accessibility}`);
-    await expect(this.editPageRoomDetails).toContainText(`Features: ${roomDetails}`);
-    await expect(this.editPageRoomDetails).toContainText(`Room price: ${price}`);
-    await expect(this.editPageRoomDetails).toContainText(`Description: ${description}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.roomLabel}: ${roomNumber}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.typeLabel}: ${type}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.accessibleLabel}: ${accessibility}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.featuresLabel}: ${roomDetails}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.roomPriceLabel}: ${price}`);
+    await expect(this.editPageRoomDetails).toContainText(`${this.english.descriptionLabel}: ${description}`);
   };
 
-  async editRoomDetails(roomNumber: number, type: string, accessibility: boolean, price: number, roomDetailsToUncheck: Locator[], roomDetailsToCheck: Locator[], description: string): Promise<void> {
+  async editRoomDetails(roomNumber: number, type: string, accessibility: string, price: number, roomDetailsToUncheck: Locator[], roomDetailsToCheck: Locator[], description: string): Promise<void> {
     await this.editButton.click();
     await this.fillInRoomNumber(roomNumber);
     await this.selectType(type);
@@ -167,10 +170,16 @@ class RoomsPage {
         const accessiblility = await room.locator("div:nth-child(3) > p").innerText();
         const price = await room.locator("div:nth-child(4) > p").innerText();
         const roomDetails = await room.locator("div:nth-child(5) > p").innerText();
-        console.log(`Room Number: ${roomNumber}, Type: ${type}, Accessibility: ${accessiblility}, Price: ${price}, Room details: ${roomDetails}`);
+        console.log(`
+          ${this.english.roomLabel}: ${roomNumber},
+          ${this.english.typeLabel}: ${type},
+          ${this.english.accessibleLabel}: ${accessiblility},
+          ${this.english.roomPriceLabel}: ${price},
+          ${this.english.featuresLabel}: ${roomDetails}`
+        );
       }
     } else {
-      console.log("No available rooms in the system.");
+      console.log(this.english.noAvailableRoomsErrorMessage);
     }
   };
 }

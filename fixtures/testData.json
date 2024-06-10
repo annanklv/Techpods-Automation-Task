@@ -1,36 +1,25 @@
 {
-  "validRooms": [
+  "validRoomInputData": [
     {
       "roomNumber": 409,
-      "type": "single",
-      "accessibility": true,
       "price": 120
     },
     {
       "roomNumber": 307,
-      "type": "family",
-      "accessibility": false,
       "price": 230
     },
     {
       "roomNumber": 217,
-      "type": "twin",
-      "accessibility": true,
-      "price": 150,
-      "description": "Updated room description"
+      "price": 150
     },
     {
       "roomNumber": 532,
-      "type": "suite",
-      "accessibility": false,
       "price": 300
     }
   ],
   "expectedRoomValues": [
     {
       "roomNumber": "409",
-      "type": "Single",
-      "accessibility": "true",
       "price": "120"
     },
     {
@@ -54,7 +43,7 @@
       "price": "300"
     }
   ],
-  "invalidRooms": {
+  "invalidRoomInputData": {
     "roomNumber": "",
     "price": 3000
   }

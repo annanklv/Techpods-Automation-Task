@@ -2,8 +2,11 @@ import test, { expect } from "playwright/test";
 import { Hooks } from "../utils/hooks";
 import { RoomsPage } from "../pageObjects/roomsPage";
 import testData from "../fixtures/testData.json";
+import translations from "../fixtures/translations.json";
 
 test.describe("Rooms test cases", async () => {
+  const english = translations["en-EN"];
+
   test.beforeEach(async ({ page }) => {
     const hooks = new Hooks(page);
 
@@ -20,30 +23,30 @@ test.describe("Rooms test cases", async () => {
     const roomsPage = new RoomsPage(page);
 
     await roomsPage.createRoom(
-      testData.validRooms[0].roomNumber,
-      testData.validRooms[0].type,
-      testData.validRooms[0].accessibility,
-      testData.validRooms[0].price,
+      testData.validRoomInputData[0].roomNumber,
+      english.singleRoom,
+      english.accessibilityTrue,
+      testData.validRoomInputData[0].price,
       [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]
     );
 
     await roomsPage.assertNewRoomIsCreatedWithCorrectData(
       testData.expectedRoomValues[0].roomNumber,
-      testData.expectedRoomValues[0].type,
-      testData.expectedRoomValues[0].accessibility,
+      english.expectedRoomOutputData[0].type,
+      english.expectedRoomOutputData[0].accessibility,
       testData.expectedRoomValues[0].price,
-      "WiFi, Refreshments"
+      `${english.wifi}, ${english.refreshments}`
     );
   });
 
   test("Test that you can not create a room with invalid input data.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
-    await roomsPage.fillInRoomNumber(testData.validRooms[0].roomNumber);
-    await roomsPage.fillInPrice(testData.invalidRooms.price);
+    await roomsPage.fillInRoomNumber(testData.validRoomInputData[0].roomNumber);
+    await roomsPage.fillInPrice(testData.invalidRoomInputData.price);
     await roomsPage.clickTheCreateButton();
 
-    await expect(roomsPage.dangerAlert).toContainText("must be less than or equal to 999");
+    await expect(roomsPage.dangerAlert).toContainText(english.invalidPriceErrorMessage);
   });
 
   test("Test that you can not create a room with empty input data.", async ({ page }) => {
@@ -52,72 +55,73 @@ test.describe("Rooms test cases", async () => {
     // Simply click the Create button, because by default inputs are empty
     await roomsPage.clickTheCreateButton();
 
-    await expect(roomsPage.dangerAlert).toContainText("Room name must be set");
-    await expect(roomsPage.dangerAlert).toContainText("must be greater than or equal to 1");
+    await expect(roomsPage.dangerAlert).toContainText(english.emptyRoomNumberErrorMessage);
+    await expect(roomsPage.dangerAlert).toContainText(english.emptyPriceErrorMessage);
   });
 
   test("Test that you can update a room.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
     await roomsPage.createRoom(
-      testData.validRooms[1].roomNumber,
-      testData.validRooms[1].type,
-      testData.validRooms[1].accessibility,
-      testData.validRooms[1].price,
+      testData.validRoomInputData[1].roomNumber,
+      english.familyRoom,
+      english.accessibilityFalse,
+      testData.validRoomInputData[1].price,
       [roomsPage.roomDetails.tv, roomsPage.roomDetails.radio]
     );
 
     await roomsPage.clickOnLastAddedRoomRow();
 
     await roomsPage.assertEditRoomPageDataIsCorrect(
-      testData.expectedRoomValues[1].roomNumber,
-      testData.expectedRoomValues[1].type,
-      testData.expectedRoomValues[1].accessibility,
+      testData.validRoomInputData[1].roomNumber.toString(),
+      english.expectedRoomOutputData[1].type,
+      english.expectedRoomOutputData[1].accessibility,
       testData.expectedRoomValues[1].price,
-      "TV, Radio",
-      testData.expectedRoomValues[1].defaultDescription!
+      `${english.tv}, ${english.radio}`,
+      testData.expectedRoomValues[1].defaultDescription! // not translated since it is a user input
     );
 
     await roomsPage.editRoomDetails(
-      testData.validRooms[2].roomNumber,
-      testData.validRooms[2].type,
-      testData.validRooms[2].accessibility,
-      testData.validRooms[2].price,
+      testData.validRoomInputData[2].roomNumber,
+      english.twinRoom,
+      english.accessibilityTrue,
+      testData.validRoomInputData[2].price,
       [roomsPage.roomDetails.tv, roomsPage.roomDetails.radio],
-      [roomsPage.roomDetails.radio, roomsPage.roomDetails.safe],
-      testData.validRooms[2].description!
+      [roomsPage.roomDetails.views, roomsPage.roomDetails.safe],
+      testData.expectedRoomValues[2].description! // not translated since it is a user input
     );
 
     await roomsPage.assertEditRoomPageDataIsCorrect(
       testData.expectedRoomValues[2].roomNumber,
-      testData.expectedRoomValues[2].type,
-      testData.expectedRoomValues[2].accessibility,
+      english.expectedRoomOutputData[2].type,
+      english.expectedRoomOutputData[2].accessibility,
       testData.expectedRoomValues[2].price,
-      "Radio, Safe",
-      testData.expectedRoomValues[2].description!
+      `${english.safe}, ${english.views}`,
+      testData.expectedRoomValues[2].description! // not translated since it is a user input
     );
 
     await page.goBack();
 
     await roomsPage.assertNewRoomIsCreatedWithCorrectData(
       testData.expectedRoomValues[2].roomNumber,
-      testData.expectedRoomValues[2].type,
-      testData.expectedRoomValues[2].accessibility,
+      english.expectedRoomOutputData[2].type,
+      english.expectedRoomOutputData[2].accessibility,
       testData.expectedRoomValues[2].price,
-      "Radio, Safe"
+      `${english.safe}, ${english.views}`
     );
   });
 
-  // Fails due to a bug in the application
+  // NOTE: Fails due to a bug in the application
   test("Test that you can delete rooms.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
     await roomsPage.createRoom(
-      testData.validRooms[3].roomNumber,
-      testData.validRooms[3].type,
-      testData.validRooms[3].accessibility,
-      testData.validRooms[3].price,
-      [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]);
+      testData.validRoomInputData[3].roomNumber,
+      english.suiteRoom,
+      english.accessibilityFalse,
+      testData.validRoomInputData[3].price,
+      [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]
+    );
 
     const initialNumberOfRooms = await roomsPage.getNumberOfRooms();
     const roomDataAfterAddingTheRoom = await roomsPage.getLastRoomData();
@@ -134,8 +138,21 @@ test.describe("Rooms test cases", async () => {
   test("Test that you can view the available rooms in the system.", async ({ page }) => {
     const roomsPage = new RoomsPage(page);
 
-    await roomsPage.createRoom(testData.validRooms[0].roomNumber, testData.validRooms[0].type, testData.validRooms[0].accessibility, testData.validRooms[0].price, [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]);
-    await roomsPage.createRoom(testData.validRooms[1].roomNumber, testData.validRooms[1].type, testData.validRooms[1].accessibility, testData.validRooms[1].price, [roomsPage.roomDetails.tv, roomsPage.roomDetails.radio]);
+    await roomsPage.createRoom(
+      testData.validRoomInputData[0].roomNumber,
+      english.singleRoom,
+      english.accessibilityTrue,
+      testData.validRoomInputData[0].price,
+      [roomsPage.roomDetails.wifi, roomsPage.roomDetails.refreshments]
+    );
+
+    await roomsPage.createRoom(
+      testData.validRoomInputData[1].roomNumber,
+      english.familyRoom,
+      english.accessibilityFalse,
+      testData.validRoomInputData[1].price,
+      [roomsPage.roomDetails.tv, roomsPage.roomDetails.radio]
+    );
 
     await roomsPage.getAllAvailableRooms();
   });
