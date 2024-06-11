@@ -1,8 +1,8 @@
 import test, { expect } from "playwright/test";
-import { Hooks } from "../utils/hooks";
 import { RoomsPage } from "../pageObjects/roomsPage";
-import testData from "../fixtures/testData.json";
-import translations from "../fixtures/translations.json";
+import testData from "../../fixtures/testData.json";
+import translations from "../../fixtures/translations.json";
+import { Hooks } from "../../utils/hooks";
 
 test.describe("Rooms test cases", async () => {
   const english = translations["en-EN"];

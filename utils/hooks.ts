@@ -1,6 +1,6 @@
 import { Page } from "playwright";
-import { LoginPage } from "../pageObjects/loginPage";
-import { AdminPanelPage } from "../pageObjects/adminPanelPage";
+import { LoginPage } from "../tests/pageObjects/loginPage";
+import { AdminPanelPage } from "../tests/pageObjects/adminPanelPage";
 
 class Hooks {
   readonly page: Page;

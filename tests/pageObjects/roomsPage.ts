@@ -1,6 +1,6 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
-import translations from "../fixtures/translations.json";
+import translations from "../../fixtures/translations.json";
 
 class RoomsPage {
   readonly page: Page;

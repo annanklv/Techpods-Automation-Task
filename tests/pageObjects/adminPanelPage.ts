@@ -1,7 +1,7 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
 import { LoginPage } from "./loginPage";
-import translations from "../fixtures/translations.json";
+import translations from "../../fixtures/translations.json";
 
 class AdminPanelPage {
   readonly page: Page;

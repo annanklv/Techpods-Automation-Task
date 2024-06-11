@@ -1,8 +1,8 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
-import { PASSWORD, USERNAME } from "../utils/environmentVariables";
+import { PASSWORD, USERNAME } from "../../utils/environmentVariables";
 import { AdminPanelPage } from "./adminPanelPage";
-import translations from "../fixtures/translations.json";
+import translations from "../../fixtures/translations.json";
 
 class LoginPage {
   readonly page: Page;
