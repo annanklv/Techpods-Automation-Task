@@ -32,11 +32,12 @@ You can do that by running the command `npm install`.
 
 ## Usage
 
-First thing you should do is to create a `.env` file in the root directory of the project and add there the credentials you will use to login:
+First thing you should do is to create a `.env` file in the root directory of the project and add there the login credentials and application language you will use:
 
 ```
 ADMIN_USERNAME=<username>
 ADMIN_PASSWORD=<password>
+APP_LANGUAGE=English
 ```
 
 To execute tests navigate to `techpods-automation-task` directory and run:

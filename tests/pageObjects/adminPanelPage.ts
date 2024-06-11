@@ -1,11 +1,10 @@
 import { Locator, Page } from "playwright";
 import { expect } from "playwright/test";
 import { LoginPage } from "./loginPage";
-import translations from "../../fixtures/translations.json";
+import { APP_LABEL } from "../../utils/environmentVariables";
 
 class AdminPanelPage {
   readonly page: Page;
-  readonly english: any;
   readonly url: string;
   readonly navRoomsButton: Locator;
   readonly navReportButton: Locator;
@@ -17,15 +16,14 @@ class AdminPanelPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.english = translations["en-EN"];
     this.url = "https://automationintesting.online/#/admin";
-    this.navRoomsButton = page.getByRole('link', { name: `${this.english.roomsNavButton}` });
-    this.navReportButton = page.getByRole("link", { name: `${this.english.reportNavButton}` });
-    this.navBrandingButton = page.getByRole("link", { name: `${this.english.brandingNavButton}` });
-    this.navHeader = page.getByRole("link", { name: `${this.english.navHeader}` });
+    this.navRoomsButton = page.getByRole('link', { name: `${APP_LABEL.roomsNavButton}` });
+    this.navReportButton = page.getByRole("link", { name: `${APP_LABEL.reportNavButton}` });
+    this.navBrandingButton = page.getByRole("link", { name: `${APP_LABEL.brandingNavButton}` });
+    this.navHeader = page.getByRole("link", { name: `${APP_LABEL.navHeader}` });
     this.navMessagesButton = page.locator("nav a > i");
-    this.NavFrontPageButton = page.getByRole("link", { name: `${this.english.frontPageNavButton}` });
-    this.navLogoutButton = page.getByRole("link", { name: `${this.english.logoutNavButton}` });
+    this.NavFrontPageButton = page.getByRole("link", { name: `${APP_LABEL.frontPageNavButton}` });
+    this.navLogoutButton = page.getByRole("link", { name: `${APP_LABEL.logoutNavButton}` });
   };
 
   async logout(): Promise<void> {

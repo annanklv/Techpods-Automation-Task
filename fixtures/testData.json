@@ -1,50 +1,93 @@
 {
-  "validRoomInputData": [
-    {
-      "roomNumber": 409,
-      "price": 120
+  "roomsTestData": {
+    "validExample0": {
+      "input": {
+        "roomNumber": "101",
+        "price": 100
+      },
+      "output": {
+        "roomNumber": "101",
+        "price": 100
+      }
     },
-    {
-      "roomNumber": 307,
-      "price": 230
+    "validExample1": {
+      "input": {
+        "roomNumber": "409",
+        "price": 120
+      },
+      "output": {
+        "roomNumber": "409",
+        "price": 120
+      }
     },
-    {
-      "roomNumber": 217,
-      "price": 150
+    "validExample2": {
+      "input": {
+        "roomNumber": "307",
+        "price": 230
+      },
+      "output": {
+        "roomNumber": "307",
+        "price": 230,
+        "defaultDescription": "Please enter a description for this room"
+      }
     },
-    {
-      "roomNumber": 532,
-      "price": 300
+    "validExample3": {
+      "input": {
+        "roomNumber": "217",
+        "price": 150,
+        "description": "Updated room description"
+      },
+      "output": {
+        "roomNumber": "217",
+        "price": 150,
+        "description": "Updated room description"
+      }
+    },
+    "validExample4": {
+      "input": {
+        "roomNumber": "532",
+        "price": 300
+      },
+      "output": {
+        "roomNumber": "532",
+        "price": 300
+      }
+    },
+    "validExample5": {
+      "input": {
+        "roomNumber": "210",
+        "price": 170
+      },
+      "output": {
+        "roomNumber": "210",
+        "price": 170
+      }
+    },
+    "validExample6": {
+      "input": {
+        "roomNumber": "337",
+        "price": 160
+      },
+      "output": {
+        "roomNumber": "337",
+        "price": 160
+      }
+    },
+    "validExample7": {
+      "input": {
+        "roomNumber": "338",
+        "price": 165
+      },
+      "output": {
+        "roomNumber": "338",
+        "price": 165
+      }
+    },
+    "invalidExample1": {
+      "input": {
+        "roomNumber": "",
+        "price": 3000
+      }
     }
-  ],
-  "expectedRoomValues": [
-    {
-      "roomNumber": "409",
-      "price": "120"
-    },
-    {
-      "roomNumber": "307",
-      "type": "Family",
-      "accessibility": "false",
-      "price": "230",
-      "defaultDescription": "Please enter a description for this room"
-    },
-    {
-      "roomNumber": "217",
-      "type": "Twin",
-      "accessibility": "true",
-      "price": "150",
-      "description": "Updated room description"
-    },
-    {
-      "roomNumber": "532",
-      "type": "suite",
-      "accessibility": "false",
-      "price": "300"
-    }
-  ],
-  "invalidRoomInputData": {
-    "roomNumber": "",
-    "price": 3000
   }
 }
