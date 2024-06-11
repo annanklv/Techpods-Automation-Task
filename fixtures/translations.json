@@ -1,0 +1,158 @@
+{
+  "en-EN": {
+    "wifi": "WiFi",
+    "refreshments": "Refreshments",
+    "tv": "TV",
+    "safe": "Safe",
+    "radio": "Radio",
+    "views": "Views",
+    "singleRoom": "Single",
+    "twinRoom": "Twin",
+    "doubleRoom": "Double",
+    "familyRoom": "Family",
+    "suiteRoom": "Suite",
+    "accessibilityTrue": "true",
+    "accessibilityFalse": "false",
+    "roomLabel": "Room",
+    "typeLabel": "Type",
+    "accessibleLabel": "Accessible",
+    "featuresLabel": "Features",
+    "roomPriceLabel": "Room price",
+    "descriptionLabel": "Description",
+    "roomsNavButton": "Rooms",
+    "reportNavButton": "Report",
+    "brandingNavButton": "Branding",
+    "navHeader": "B&B Booking Management",
+    "frontPageNavButton": "Front Page",
+    "logoutNavButton": "Logout",
+    "loginHeader": "Log into your account",
+    "emptyRoomNumberErrorMessage": "Room name must be set",
+    "emptyPriceErrorMessage": "must be greater than or equal to 1",
+    "invalidPriceErrorMessage": "must be less than or equal to 999",
+    "noAvailableRoomsErrorMessage": "No available rooms in the system.",
+    "expectedRoomOutputData": [
+      {
+        "type": "Single",
+        "accessibility": "true"
+      },
+      {
+        "type": "Family",
+        "accessibility": "false",
+        "defaultDescription": "Please enter a description for this room"
+      },
+      {
+        "type": "Twin",
+        "accessibility": "true",
+        "description": "Updated room description"
+      },
+      {
+        "type": "Suite",
+        "accessibility": "false"
+      }
+    ]
+  },
+  "bg-BG": {
+    "wifi": "WiFi",
+    "refreshments": "Освежителни напитки",
+    "tv": "Телевизор",
+    "safe": "Сейф",
+    "radio": "Радио",
+    "views": "Изгледи",
+    "singleRoom": "Единична",
+    "twinRoom": "Двойна с две легла",
+    "doubleRoom": "Двойна",
+    "familyRoom": "Семейна",
+    "suiteRoom": "Апартамент",
+    "accessibilityTrue": "да",
+    "accessibilityFalse": "не",
+    "roomLabel": "Стая",
+    "typeLabel": "Тип",
+    "accessibleLabel": "Достъпно",
+    "featuresLabel": "Характеристики",
+    "roomPriceLabel": "Цена на стаята",
+    "descriptionLabel": "Описание",
+    "roomsNavButton": "Стаи",
+    "reportNavButton": "Отчет",
+    "brandingNavButton": "Брандиране",
+    "navHeader": "Управление на резервации за B&B",
+    "frontPageNavButton": "Начална страница",
+    "logoutNavButton": "Изход",
+    "loginHeader": "Влезте в своя акаунт",
+    "emptyRoomNumberErrorMessage": "Името на стаята трябва да бъде зададено",
+    "emptyPriceErrorMessage": "трябва да бъде по-голямо или равно на 1",
+    "invalidPriceErrorMessage": "трябва да бъде по-малко или равно на 999",
+    "noAvailableRoomsErrorMessage": "Няма налични стаи в системата.",
+    "expectedRoomOutputData": [
+      {
+        "type": "Единична",
+        "accessibility": "да"
+      },
+      {
+        "type": "Семейна",
+        "accessibility": "не",
+        "defaultDescription": "Моля, въведете описание за тази стая"
+      },
+      {
+        "type": "Двойна с две легла",
+        "accessibility": "да",
+        "description": "Актуализирано описание на стаята"
+      },
+      {
+        "type": "Апартамент",
+        "accessibility": "не"
+      }
+    ]
+  },
+  "de-DE": {
+    "wifi": "WiFi",
+    "refreshments": "Erfrischungen",
+    "tv": "Fernseher",
+    "safe": "Safe",
+    "radio": "Radio",
+    "views": "Aussichten",
+    "singleRoom": "Einzelzimmer",
+    "twinRoom": "Zweibettzimmer",
+    "doubleRoom": "Doppelzimmer",
+    "familyRoom": "Familienzimmer",
+    "suiteRoom": "Suite",
+    "accessibilityTrue": "ja",
+    "accessibilityFalse": "nein",
+    "roomLabel": "Zimmer",
+    "typeLabel": "Typ",
+    "accessibleLabel": "Barrierefrei",
+    "featuresLabel": "Ausstattung",
+    "roomPriceLabel": "Zimmerpreis",
+    "descriptionLabel": "Beschreibung",
+    "roomsNavButton": "Zimmer",
+    "reportNavButton": "Bericht",
+    "brandingNavButton": "Branding",
+    "navHeader": "B&B Buchungsverwaltung",
+    "frontPageNavButton": "Startseite",
+    "logoutNavButton": "Abmelden",
+    "loginHeader": "Melden Sie sich in Ihrem Konto an",
+    "emptyRoomNumberErrorMessage": "Zimmername muss angegeben werden",
+    "emptyPriceErrorMessage": "muss größer oder gleich 1 sein",
+    "invalidPriceErrorMessage": "muss kleiner oder gleich 999 sein",
+    "noAvailableRoomsErrorMessage": "Keine verfügbaren Zimmer im System.",
+    "expectedRoomOutputData": [
+      {
+        "type": "Einzelzimmer",
+        "accessibility": "ja"
+      },
+      {
+        "type": "Familienzimmer",
+        "accessibility": "nein",
+        "defaultDescription": "Bitte geben Sie eine Beschreibung für dieses Zimmer ein"
+      },
+      {
+        "type": "Zweibettzimmer",
+        "accessibility": "ja",
+        "description": "Aktualisierte Zimmerbeschreibung"
+      },
+      {
+        "type": "Suite",
+        "accessibility": "nein"
+      }
+    ]
+  }
+}

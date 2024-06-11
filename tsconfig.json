@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "CommonJS",
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": true,
+    "strict": true,
+    "pretty": true,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "resolveJsonModule": true
+  },
+  // Files to be excluded from compilations
+  "exclude": [
+    "node_modules"
+  ]
+}
