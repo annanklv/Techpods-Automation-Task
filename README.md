@@ -32,6 +32,13 @@ You can do that by running the command `npm install`.
 
 ## Usage
 
+First thing you should do is to create a `.env` file in the root directory of the project and add there the credentials you will use to login:
+
+```
+ADMIN_USERNAME=<username>
+ADMIN_PASSWORD=<password>
+```
+
 To execute tests navigate to `techpods-automation-task` directory and run:
 
 * `npm run test:all` to execute tests in all available suites.
@@ -77,7 +84,7 @@ projects: [
 ]
 ```
 
-If you want to run the tests in all browsers and in parallel, uncomment the code above and set the workers to 6 for example since we have 8 test cases and we run them on 3 browsers. Also set the fullyParallel property to true:
+If you want to run the tests in all browsers and in parallel, uncomment the code above and set the workers to 6 for example since we have 6 test cases and we run them on 3 browsers. Also set the fullyParallel property to true:
 
 ```
 workers: 6,
